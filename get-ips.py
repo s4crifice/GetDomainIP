@@ -1,4 +1,5 @@
 import socket
+import sys
 
 def get_ip_address(domain):
     try:
@@ -8,11 +9,10 @@ def get_ip_address(domain):
         print(f"Error occurred while resolving {domain}: {e}")
         return None
 
-def main():
+def main(input_file, output_file):
     ips = []
-    file_path = "scope.txt"
     try:
-        with open(file_path, "r") as file:
+        with open(input_file, "r") as file:
             domains = file.readlines()
             for domain in domains:
                 domain = domain.strip()
@@ -22,16 +22,20 @@ def main():
                     if ip_address not in ips:
                         ips.append(ip_address)
 
-
-        with open('ips.txt', 'w') as f:
+        with open(output_file, 'w') as f:
             for j in ips:
                 full = str(j) + '\n'
                 f.write(full)
 
-        print('\nIP\'s save to ips.txt')
+        print(f'\nIP\'s saved to {output_file}')
 
     except FileNotFoundError:
-        print(f"File '{file_path}' not found.")
+        print(f"File '{input_file}' not found.")
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) != 3:
+        print("Usage: python script.py input_file output_file")
+        sys.exit(1)
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
+    main(input_file, output_file)
