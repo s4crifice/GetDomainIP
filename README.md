@@ -14,7 +14,7 @@ www.example.com
 subdomain.example.com
 ```
 
-3. Make sure your there is not ips.txt file in current directory!
+3. Make sure there isn't ips.txt file in current directory!
 4. Run the script
 ```
 python3 get-ips.py
